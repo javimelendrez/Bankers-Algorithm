@@ -6,10 +6,14 @@ using namespace std;
 //creating global variables
 const int maximum_resources = 3; //these are constant because they will not change
 const int resources_allocated = 3; 
+const int number_of_processors = 5;
 vector<int> processor_maximum; //will hold the maximum resource values
 vector<int> processor_allocation; //will hold the resources allocated to the processors
+int maximum_array[number_of_processors][maximum_resources]; //array for the maxiumum matrix
+int allocated_array[number_of_processors][resources_allocated]; //array for the resources allocated
 void getTextFile(); //function defined below
 void printTextFile(); //function defined below
+void move2array(); //function defined below
 int main() {
 	getTextFile(); //call the function to get the text file and read it
 	printTextFile(); //call the function to print what was in the text file
@@ -31,17 +35,55 @@ void getTextFile() {
 		cout << "File successfully opened!\n";
 		while (!file.eof())
 		{
-			//for loop because the first 3 integers are for maximum resources
-			for (int a = 0; a < maximum_resources; a++)
+			for (int i = 0; i < maximum_resources; i++)
 			{
 				file >> demand;
-				processor_maximum.push_back(demand); //add it into the vector
+				maximum_array[0][i] = demand;
 			}
-			//for loop because the last 3 integers are for allocated resources
-			for (int b = 0; b < resources_allocated; b++)
+			for (int i = 0; i < maximum_resources; i++)
 			{
-				file >> disperse;
-				processor_allocation.push_back(disperse); //add it into the vector
+				file >> demand;
+				allocated_array[0][i] = demand;
+			}
+			for (int i = 0; i < maximum_resources; i++)
+			{
+				file >> demand;
+				maximum_array[1][i] = demand;
+			}
+			for (int i = 0; i < maximum_resources; i++)
+			{
+				file >> demand;
+				allocated_array[1][i] = demand;
+			}
+			for (int i = 0; i < maximum_resources; i++)
+			{
+				file >> demand;
+				maximum_array[2][i] = demand;
+			}
+			for (int i = 0; i < maximum_resources; i++)
+			{
+				file >> demand;
+				allocated_array[2][i] = demand;
+			}
+			for (int i = 0; i < maximum_resources; i++)
+			{
+				file >> demand;
+				maximum_array[3][i] = demand;
+			}
+			for (int i = 0; i < maximum_resources; i++)
+			{
+				file >> demand;
+				allocated_array[3][i] = demand;
+			}
+			for (int i = 0; i < maximum_resources; i++)
+			{
+				file >> demand;
+				maximum_array[4][i] = demand;
+			}
+			for (int i = 0; i < maximum_resources; i++)
+			{
+				file >> demand;
+				allocated_array[4][i] = demand;
 			}
 		}
 		//always proper to close the file you opened
@@ -56,14 +98,24 @@ void getTextFile() {
 }
 //this function just prints what was inside the text file
 void printTextFile() {
-	cout << "Maximum\n";
-	for (auto k = processor_maximum.begin(); k != processor_maximum.end(); k++)
+	for (int i = 0; i < number_of_processors; i++)
 	{
-		cout << *k << " ";
+		for (int j = 0; j < maximum_resources; j++)
+		{
+			cout << maximum_array[i][j] << " ";
+		}
+		cout << endl;
 	}
-	cout << "\nAllocated\n";
-	for (auto i = processor_allocation.begin(); i != processor_allocation.end(); i++)
+	for (int i = 0; i < number_of_processors; i++)
 	{
-		cout << *i << " ";
+		for (int j = 0; j < maximum_resources; j++)
+		{
+			cout << allocated_array[i][j] << " ";
+		}
+		cout << endl;
 	}
+}
+//function that will move the vectors into 2d array
+void move2array() {
+
 }
