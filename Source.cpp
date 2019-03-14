@@ -18,6 +18,8 @@ void getTextFile(); //function defined below
 void printTextFile(); //function defined below
 void calculateNeed(); //function defined below
 void menu(); //function defined below
+void user_request(); //function defined below
+void update(); //function defined below
 int main() {
 	getTextFile(); //call the function to get the text file and read it
 	int user_choice; //will be for user decision in the main menu
@@ -32,7 +34,7 @@ int main() {
 			printTextFile();
 			break;
 		case 2:
-			cout << "not implemented yet\n";
+			user_request();
 			break;
 		case 3:
 			cout << "not implemented yet\n";
@@ -172,6 +174,8 @@ void printTextFile() {
 		}
 		cout << endl;
 	}
+	cout << "\nAvaiable resources is " << available_array[0] << " " << available_array[1] << " " << available_array[2] << endl;
+
 }
 //this function calculates the need by subtracting the maximum by the allocated 
 void calculateNeed() {
@@ -193,4 +197,63 @@ void menu() {
 	cout << "3. Automatic mode.\n";
 	cout << "4. Quit.\n";
 	cout << "Enter your choice and press enter.\n";
+}
+//this functions is for when user selects to make a resources request
+void user_request() {
+	bool safe = true; //initially the state will be true if resource is denied it turns into false and skips if statement
+	//create int values to hold the user request
+	int processor, resource_a, resource_b, resource_c;
+	//tell them how to submit the resource
+	cout << "Enter which process and how much resources ex. 0 3 3 3\n";
+	cin >> processor >> resource_a >> resource_b >> resource_c; //get the request
+	//find out if the requested resources are less than available
+	//create an array to hold user requested resources
+	int request_array[3] = { resource_a,resource_b,resource_c };
+	//now compare this array to the available array
+	for (int i = 0; i < maximum_resources; i++)
+	{
+		if (request_array[i] > available_array[i])
+		{
+			//deny the request
+			cout << "Request denied! You are asking for more resources than are available.\n";
+			safe = false;
+			break;
+		}
+	}
+	//if it is allowed to allocate those resources then go ahead and allocated them and update everything
+	if (safe)
+	{
+		allocated_array[processor][0] += resource_a;
+		allocated_array[processor][1] += resource_b;
+		allocated_array[processor][2] += resource_c;
+		cout << "Approved! P" << processor << " now at " << allocated_array[processor][0] << " " << allocated_array[processor][1] << " " << allocated_array[processor][2];
+
+		//update the available array
+		available_array[0] -= resource_a;
+		available_array[1] -= resource_b;
+		available_array[2] -= resource_c;
+		//print available
+		cout << "\nAvaiable resources is " << available_array[0] << " " << available_array[1] << " " << available_array[2] << endl;
+		//now that the allocated array has been updated 
+		//call function to update need
+		calculateNeed();
+	}
+	//before we exit this function i need to check that the max = the need if it does anounce process done now releasing resources and updated again
+	//now checking if max = need
+	if (maximum_array[processor][0] == need_array[processor][0] && maximum_array[processor][1] == need_array[processor][1] && maximum_array[processor][2] == need_array[processor][2])
+	{
+		//cout << "Processor " << processor << " has received all its resources and is now finished. It will now release its resources.\n";
+	}
+	//add the allocated array to the available array set allocated array resources to zero for that processor
+	/*
+	for (int k = 0; k < maximum_resources; k++)
+	{
+		available_array[k] += allocated_array[processor][k];
+		allocated_array[processor][k] = 0;
+	}
+	*/
+}
+//this function will update allocated array
+void update() {
+
 }
