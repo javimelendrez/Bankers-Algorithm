@@ -19,7 +19,7 @@ void printTextFile(); //function defined below
 void calculateNeed(); //function defined below
 void menu(); //function defined below
 void user_request(); //function defined below
-void update(); //function defined below
+void check_if_done(); //function defined below
 int main() {
 	getTextFile(); //call the function to get the text file and read it
 	int user_choice; //will be for user decision in the main menu
@@ -253,8 +253,20 @@ void user_request() {
 	/*
 
 	*/
+	//call the check if done function
+	check_if_done();
 }
-//this function will update allocated array
-void update() {
-
+//this function checks that all needs are 0 for every processor
+//if the need matrix is all zero then all proccess are finished and no more allocation is needed
+//or i can also just check if the availabel array is the value of all the resources
+void check_if_done() {
+	if (available_array[0] == 17 && available_array[1] == 7 && available_array[2] == 12)
+	{
+		cout << "All resources have been released and there is no need for any resources\n";
+		cout << "Therefore all processes have finished.\n";
+		//display the state one last time
+		printTextFile();
+		//and break out of the while loop
+		still_running = false;
+	}
 }
