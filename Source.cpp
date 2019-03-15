@@ -240,17 +240,18 @@ void user_request() {
 	}
 	//before we exit this function i need to check that the max = the need if it does anounce process done now releasing resources and updated again
 	//now checking if max = need
-	if (maximum_array[processor][0] == need_array[processor][0] && maximum_array[processor][1] == need_array[processor][1] && maximum_array[processor][2] == need_array[processor][2])
+	if (maximum_array[processor][0] == allocated_array[processor][0] && maximum_array[processor][1] == allocated_array[processor][1] && maximum_array[processor][2] == allocated_array[processor][2])
 	{
 		//cout << "Processor " << processor << " has received all its resources and is now finished. It will now release its resources.\n";
+		for (int k = 0; k < maximum_resources; k++)
+		{
+			available_array[k] += allocated_array[processor][k];
+			allocated_array[processor][k] = 0;
+		}
 	}
 	//add the allocated array to the available array set allocated array resources to zero for that processor
 	/*
-	for (int k = 0; k < maximum_resources; k++)
-	{
-		available_array[k] += allocated_array[processor][k];
-		allocated_array[processor][k] = 0;
-	}
+
 	*/
 }
 //this function will update allocated array
