@@ -7,8 +7,11 @@ using namespace std;
 const int maximum_resources = 3; //these are constant because they will not change
 const int resources_allocated = 3;
 const int number_of_processors = 5;
+/*was never used ... was for first try of making this program
 vector<int> processor_maximum; //will hold the maximum resource values
 vector<int> processor_allocation; //will hold the resources allocated to the processors
+*/
+
 int maximum_array[number_of_processors][maximum_resources]; //array for the maxiumum matrix
 int allocated_array[number_of_processors][resources_allocated]; //array for the resources allocated
 int need_array[number_of_processors][maximum_resources]; //array for how much resources is needed for each processor
@@ -55,12 +58,12 @@ int main() {
 //ask for the name of the text file open it and take its components
 void getTextFile() {
 	int demand, disperse; //will hold the int values that were demanded and dispursed later
-	string name_of_text_file; //name of the text file from the user
-	cout << "What is the name of the text file?\n";
-	cin >> name_of_text_file; //get the name
+	//string name_of_text_file; //name of the text file from the user
+	//cout << "What is the name of the text file?\n";
+	//cin >> name_of_text_file; //get the name
 	//now create the text file and open it
 	ifstream file;
-	file.open(name_of_text_file);
+	file.open("infile.txt"); //pdf says that is the name of the txt file
 	if (file.is_open())
 	{
 		cout << "File successfully opened!\n";
@@ -141,7 +144,7 @@ void getTextFile() {
 	else
 	{
 		//let the user know you could not open the file
-		cout << "Unable to open file " << name_of_text_file << endl;
+		cout << "Unable to open file infile.txt" << endl;
 	}
 	calculateNeed(); //calculate need for first state
 }
